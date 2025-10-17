@@ -1,18 +1,19 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Captcha Solver</title>
+    <title>SVG Captcha Solver</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="captcha">
-        <span id="captchaText"></span>
-        <input type="text" id="captchaInput" placeholder="Enter Captcha">
-        <button id="captchaButton">Verify</button>
-        <p id="captchaResult"></p>
+    <h1>SVG Captcha Solver</h1>
+    <div id="captcha-container">
+        <svg id="captcha-svg" width="200" height="100"></svg>
+        <button id="refresh-button">Refresh Captcha</button>
     </div>
+    <input type="text" id="captcha-input" placeholder="Enter Captcha">
+    <button id="submit-button">Submit</button>
+    <p id="result"></p>
     <script src="main.js"></script>
 </body>
 </html>
