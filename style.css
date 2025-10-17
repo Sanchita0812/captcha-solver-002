@@ -1,21 +1,7 @@
-#captcha {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
-
-#captchaText {
-    font-size: 2em;
+#captcha-container {
     margin-bottom: 10px;
 }
 
-#captchaInput {
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-#captchaButton {
-    padding: 5px 10px;
-    cursor: pointer;
+#captcha-svg {
+    border: 1px solid black;
 }
