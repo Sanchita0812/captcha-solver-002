@@ -1,34 +1,21 @@
-.captcha-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
+#captcha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
 }
 
-#captcha-image {
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+#captchaText {
+    font-size: 2em;
+    margin-bottom: 10px;
 }
 
-#captcha-input {
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 150px;
+#captchaInput {
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
-#verify-button {
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-#verify-button:hover {
-  background-color: #3e8e41;
-}
-
-#verification-result {
-  margin-top: 10px;
-  font-weight: bold;
+#captchaButton {
+    padding: 5px 10px;
+    cursor: pointer;
 }
