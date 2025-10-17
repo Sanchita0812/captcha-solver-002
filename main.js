@@ -1,38 +1,35 @@
-// main.js
+// Simple Captcha Solver Logic
+
+const captchaImage = document.getElementById('captcha-image');
+const captchaInput = document.getElementById('captcha-input');
+const verifyButton = document.getElementById('verify-button');
+const verificationResult = document.getElementById('verification-result');
+
+let generatedCaptcha = '';
+
 function generateCaptcha() {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let captcha = '';
   for (let i = 0; i < 6; i++) {
-    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+    captcha += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-  return captcha;
+  generatedCaptcha = captcha;
+  captchaImage.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='50'%3E%3Ctext x='10' y='35' style='font-size:30px'%3E${captcha}%3C/text%3E%3C/svg%3E`;
 }
 
-function displayCaptcha() {
-  const captchaText = generateCaptcha();
-  document.getElementById('captchaText').innerText = captchaText;
-  document.getElementById('captchaText').dataset.captcha = captchaText;
-}
-
-function verifyCaptcha() {
-  const userInput = document.getElementById('captchaInput').value;
-  const correctCaptcha = document.getElementById('captchaText').dataset.captcha;
-  const resultElement = document.getElementById('captchaResult');
-
-  if (userInput === correctCaptcha) {
-    resultElement.innerText = 'Captcha correct!';
-    resultElement.style.color = 'green';
-    displayCaptcha(); // Generate a new captcha after successful verification
+verifyButton.addEventListener('click', () => {
+  if (captchaInput.value === generatedCaptcha) {
+    verificationResult.textContent = 'Captcha Verified!';
+    verificationResult.style.color = 'green';
+    generateCaptcha(); // Generate a new captcha after successful verification
+    captchaInput.value = ''; // Clear the input field
   } else {
-    resultElement.innerText = 'Captcha incorrect. Please try again.';
-    resultElement.style.color = 'red';
-    displayCaptcha(); // Generate a new captcha after failed verification
+    verificationResult.textContent = 'Captcha Verification Failed!';
+    verificationResult.style.color = 'red';
+    generateCaptcha(); // Generate a new captcha after failed verification
+    captchaInput.value = ''; // Clear the input field
   }
-  document.getElementById('captchaInput').value = ''; // Clear the input
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  displayCaptcha();
-
-  document.getElementById('captchaButton').addEventListener('click', verifyCaptcha);
 });
+
+// Generate the initial captcha when the page loads
+generateCaptcha();
