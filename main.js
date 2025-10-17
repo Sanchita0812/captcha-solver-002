@@ -1,30 +1,54 @@
 function generateCaptcha() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let captcha = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 6; i++) {
         captcha += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return captcha;
 }
 
-const captchaTextElement = document.getElementById('captchaText');
-const captchaInputElement = document.getElementById('captchaInput');
-const captchaButtonElement = document.getElementById('captchaButton');
-const captchaResultElement = document.getElementById('captchaResult');
+function drawCaptcha(captcha) {
+    const svg = document.getElementById('captcha-svg');
+    svg.innerHTML = ''; // Clear previous captcha
 
-let generatedCaptcha = generateCaptcha();
-captchaTextElement.innerText = generatedCaptcha;
+    const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    textElement.setAttribute('x', '10');
+    textElement.setAttribute('y', '60');
+    textElement.setAttribute('font-size', '40');
+    textElement.textContent = captcha;
+    svg.appendChild(textElement);
 
-captchaButtonElement.addEventListener('click', () => {
-    if (captchaInputElement.value === generatedCaptcha) {
-        captchaResultElement.innerText = 'Captcha Matched!';
-        captchaResultElement.style.color = 'green';
-        generatedCaptcha = generateCaptcha(); // Generate new captcha
-        captchaTextElement.innerText = generatedCaptcha;
-        captchaInputElement.value = '';
+    // Add some noise
+    for (let i = 0; i < 5; i++) {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', Math.random() * 200);
+      line.setAttribute('y1', Math.random() * 100);
+      line.setAttribute('x2', Math.random() * 200);
+      line.setAttribute('y2', Math.random() * 100);
+      line.setAttribute('stroke', 'gray');
+      svg.appendChild(line);
+    }
+}
+
+let captchaText = generateCaptcha();
+drawCaptcha(captchaText);
+
+document.getElementById('refresh-button').addEventListener('click', () => {
+    captchaText = generateCaptcha();
+    drawCaptcha(captchaText);
+});
+
+document.getElementById('submit-button').addEventListener('click', () => {
+    const input = document.getElementById('captcha-input').value;
+    const result = document.getElementById('result');
+    if (input === captchaText) {
+        result.textContent = 'Captcha Matched!';
+        result.style.color = 'green';
+        captchaText = generateCaptcha();
+        drawCaptcha(captchaText);
+        document.getElementById('captcha-input').value = '';
     } else {
-        captchaResultElement.innerText = 'Captcha Not Matched!';
-        captchaResultElement.style.color = 'red';
-        captchaInputElement.value = '';
+        result.textContent = 'Captcha Not Matched!';
+        result.style.color = 'red';
     }
 });
