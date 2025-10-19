@@ -1,7 +1,19 @@
-#captcha-container {
-    margin-bottom: 10px;
+#captcha {
+    text-align: center;
+    margin-top: 50px;
 }
 
-#captcha-svg {
-    border: 1px solid black;
+#captchaText {
+    font-size: 2em;
+    font-family: monospace;
+    margin-right: 10px;
+}
+
+#captchaInput {
+    padding: 5px;
+}
+
+#captchaButton {
+    padding: 5px 10px;
+    cursor: pointer;
 }
